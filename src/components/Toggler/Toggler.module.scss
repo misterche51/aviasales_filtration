@@ -1,0 +1,44 @@
+@import '../../variables.scss';
+
+.toggler {
+  background-color: $decorative-fill-color-first;
+  border-radius: 5px;
+  height: 50px;
+  display: flex;
+
+  &__input {
+    position: absolute;
+    clip: rect(0 0 0 0);
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+
+    &:checked+.toggler__label {
+      background-color: $decorative-fill-color-third;
+      color: $text-color-second;
+    }
+  }
+
+  &__label {
+    text-transform: uppercase;
+    text-align: center;
+    font-size: $fsz-small;
+    font-weight: 600;
+    width: 50%;
+    line-height: 1.67;
+    padding: 15px;
+
+    &:first-of-type {
+      border-radius: 5px 0 0 5px;
+    }
+
+    &:last-of-type {
+      border-radius: 0 5px 5px 0;
+    }
+
+    &:hover {
+      background-color: $decorative-fill-color-second;
+      cursor: pointer;
+    }
+  }
+}

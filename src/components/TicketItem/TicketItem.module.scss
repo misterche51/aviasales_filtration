@@ -1,0 +1,57 @@
+@import '../../variables.scss';
+
+.ticket {
+  background-color: $decorative-fill-color-first;
+  padding: 20px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  min-height: 100px;
+  font-weight: 600;
+
+  &__header {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    margin-bottom: $margin-big;
+  }
+
+  &__price {
+    font-size: $fsz-xlarge;
+    line-height: 1;
+    color: $text-color-fourth;
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  &__company {
+    margin-left: auto;
+    width: 141px;
+    height: 36px;
+  }
+
+  &__info {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    line-height: 1.5;
+
+    &:not(:first-of-type) {
+      margin-top: 10px;
+    }
+
+    &-title {
+      color: $text-color-third;
+      font-size: $fsz-small;
+      margin: 0;
+    }
+
+    &-data {
+      font-size: $fsz-large;
+      margin: 0;
+    }
+  }
+
+  &__point {
+    width: 141px;
+  }
+}

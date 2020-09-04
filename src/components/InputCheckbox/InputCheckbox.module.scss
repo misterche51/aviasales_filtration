@@ -1,0 +1,45 @@
+@import '../../variables.scss';
+
+.input {
+  position: absolute;
+  clip: rect(0 0 0 0);
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+}
+
+.label {
+  font-size: $fsz-middle;
+  line-height: 1.54;
+  position: relative;
+  padding: 10px 0;
+  padding-left: 50px;
+  cursor: pointer;
+
+  &:hover,
+  &:focus {
+    background-color: $decorative-fill-color-second;
+  }
+
+  &:before {
+    position: absolute;
+    content: "";
+    display: block;
+    border: 2px solid $decorative-line-color-first;
+    border-radius: 2px;
+    width: 20px;
+    height: 20px;
+    left: 20px;
+  }
+}
+
+.input:checked+.label:before,
+.input:hover+.label:before {
+  border-color: $decorative-line-color-second;
+}
+
+.input:checked+.label:before {
+  background-image: url("./checked.png");
+  background-position: center;
+  background-repeat: no-repeat;
+}
