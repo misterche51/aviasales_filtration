@@ -15,11 +15,11 @@ function App() {
       <div className={classes.app__container}>
         <div className={classes.app__flex}>
           <div className={classes.app__filters}>
-            <Filtration name="filtration" />
+            <Filtration name="filtration" ids={['all', 'without', 'one', 'two', 'three']}/>
           </div>
           <div className={classes.app__main}>
             <div className={classes.app__toggler}>
-              <Toggler togglerName="filtration"/>
+              <Toggler togglerName="filtration" ids={['price', 'speed']}/>
             </div>
             <div className={classes.app__tickets}>
               <TicketList />

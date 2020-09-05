@@ -1,11 +1,7 @@
 import {
   SET_SORT_TYPE,
-  SET_FILTRATION_ALL,
-  SET_FILTRATION_WITHOUT,
-  SET_FILTRATION_ONE_TRANSFER,
-  SET_FILTRATION_TWO_TRANSFER,
-  SET_FILTRATION_THREE_TRANSFER,
-  SET_FILTRATION_NOT_ALL,
+  SET_FILTER_ALL,
+  SET_FILTER_ID,
 } from './actionTypes';
 
 // генераторы экшенов
@@ -16,44 +12,16 @@ export function toggleSortingType(payload) {
   }
 };
 
-export function changeFiltrationToAll(payload) {
+export function setFilterAll(payload) {
   return {
-    type: SET_FILTRATION_ALL,
+    type: SET_FILTER_ALL,
     payload,
   }
 };
 
-export function changeFiltrationToWithout(payload) {
+export function setFilterId(payload) {
   return {
-    type: SET_FILTRATION_WITHOUT,
+    type: SET_FILTER_ID,
     payload,
-  }
-};
-
-export function changeFiltrationToOneTransfer(payload) {
-  return {
-    type: SET_FILTRATION_ONE_TRANSFER,
-    payload
-  }
-};
-
-export function changeFiltrationToTwoTransfer(payload) {
-  return {
-    type: SET_FILTRATION_TWO_TRANSFER,
-    payload,
-  }
-};
-
-export function changeFiltrationToThreeTransfer(payload) {
-  return {
-    type: SET_FILTRATION_THREE_TRANSFER,
-    payload,
-  }
-};
-
-
-export function changeFiltrationToNotAll() {
-  return {
-    type: SET_FILTRATION_NOT_ALL,
   }
 };

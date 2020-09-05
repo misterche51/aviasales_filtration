@@ -3,18 +3,35 @@ import classes from './Toggler.module.scss';
 import {toggleSortingType} from '../../redux/actions';
 import { connect } from 'react-redux';
 
-const Toggler = (props) => {
-  const { togglerName, sortInputClickHandler } = props;
+const Toggler = ({ togglerName, sortingBy, sortInputClickHandler, ids }) => {
+
+  const labels = {
+    price: "Самый дешевый",
+    speed: "Самый быстрый"
+  }
+
+  const radios = ids.map(id => {
+    const checked = sortingBy === id ? true : false;
+    return (
+      <React.Fragment key={id}>
+        <input type="radio" name={togglerName} id={id} className={classes.toggler__input} defaultChecked={checked} onChange={e => sortInputClickHandler(e.target.id)} />
+        <label className={classes.toggler__label} htmlFor={id}>{labels[id]}</label>
+      </React.Fragment>
+    )
+  });
+
   return (
     <form className={classes.toggler}>
-      <input type="radio" name={togglerName} id="price" className={classes.toggler__input} onChange={e => sortInputClickHandler(e.target.id) }  />
-      <label className={classes.toggler__label} htmlFor="price">Самый дешевый</label>
-      <input type="radio" name={togglerName} id="speed" className={classes.toggler__input} onChange={e => sortInputClickHandler(e.target.id)} />
-      <label className={classes.toggler__label} htmlFor="speed">Самый быстрый</label>
+      {radios}
     </form>
   );
 }
-
+const mapStateToProps = (state) => {
+  const { sortingBy } = state.sortingTicketsReducer;
+  return {
+    sortingBy
+  }
+}
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -22,4 +39,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect( null, mapDispatchToProps)(Toggler);
+export default connect( mapStateToProps, mapDispatchToProps)(Toggler);

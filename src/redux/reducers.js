@@ -1,11 +1,7 @@
 import {
   SET_SORT_TYPE,
-  SET_FILTRATION_ALL,
-  SET_FILTRATION_WITHOUT,
-  SET_FILTRATION_ONE_TRANSFER,
-  SET_FILTRATION_TWO_TRANSFER,
-  SET_FILTRATION_THREE_TRANSFER,
-  SET_FILTRATION_NOT_ALL
+  SET_FILTER_ALL,
+  SET_FILTER_ID
 } from './actionTypes';
 
 
@@ -21,68 +17,30 @@ export function sortingTicketsReducer(state = initialSortingState, {type, payloa
 
 
 const initialFiltrationState = {
-  all: false,
-  without: false,
-  one: false,
-  two: false,
-  three: false,
+  selectedFilters: [],
+  isAllChecked: false
 };
 
 
 export function filterTicketsReducer(state = initialFiltrationState, {type, payload}) {
+  const { isAllChecked, selectedFilters } = state;
+  const allFilters = ['without', 'one', 'two', 'three'];
+  const allFiltersLength = allFilters.length;
   switch (type) {
-    case SET_FILTRATION_ALL:
+    case SET_FILTER_ALL:
+      let updatedState = isAllChecked ? [] : allFilters;
       return {
         ...state,
-        all: payload,
-        without: payload,
-        one: payload,
-        two: payload,
-        three: payload,
-      };
-    case SET_FILTRATION_WITHOUT:
-      return payload === false ? {
-        ...state,
-        all: false,
-        without: payload,
+        selectedFilters: updatedState,
+        isAllChecked: !isAllChecked
       }
-       : { ...state,
-        without: payload,};
-    case SET_FILTRATION_ONE_TRANSFER:
-      return payload === false ? {
-        ...state,
-        all: false,
-        one: payload,
+    case SET_FILTER_ID:
+      const idx = selectedFilters.findIndex(id => id === payload);
+      const newState = idx === -1 ? [...selectedFilters, payload] : [...selectedFilters.filter(item => item !== payload)];
+      return {...state,
+        selectedFilters: newState,
+        isAllChecked: newState.length === allFiltersLength ? true : false,
       }
-       : {
-        ...state,
-        one: payload,
-      };
-    case SET_FILTRATION_TWO_TRANSFER:
-      return payload === false ? {
-        ...state,
-        all: false,
-        two: payload,
-      }
-       : {
-        ...state,
-        two: payload,
-      };
-    case SET_FILTRATION_THREE_TRANSFER:
-      return payload === false ? {
-        ...state,
-        all: false,
-        three: payload,
-      }
-       : {
-        ...state,
-        three: payload,
-      };
-    case SET_FILTRATION_NOT_ALL:
-      return {
-        ...state,
-        all: false,
-      };
     default:
       return state;
   }

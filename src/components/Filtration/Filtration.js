@@ -1,64 +1,61 @@
 import React from 'react';
 import classes from './Filtration.module.scss';
 import InputCheckbox from '../InputCheckbox/InputCheckbox';
-import {
-  changeFiltrationToAll,
-  changeFiltrationToWithout,
-  changeFiltrationToOneTransfer,
-  changeFiltrationToTwoTransfer,
-  changeFiltrationToThreeTransfer,
-  changeFiltrationToNotAll,
-} from '../../redux/actions';
+import { setFilterAll, setFilterId } from '../../redux/actions';
 import { connect } from 'react-redux';
 
 
 const Filtration = ({
+  ids,
   name,
-  visibleTickets,
-  filterChangeToAllHandler,
-  filterChangeToWithout,
-  filterChangeToOneTransfer,
-  filterChangeToTwoTransfer,
-  filterChangeToThreeTransfer,
-  filterChangeToNotAllHandler
+  selectedFilters,
+  isAllChecked,
+  setFilterAllHandler,
+  setFilterIdHandler
 }) => {
 
-  const checkboxes =
-    <div className={classes.form__body} >
-      <InputCheckbox name={name} id={"all"} label={"Все"} checked={visibleTickets.all} onChange={filterChangeToAllHandler} />
-      <InputCheckbox name={name} id={"without"} label={"Без пересадок"} checked={visibleTickets.without} onChange={filterChangeToWithout} />
-      <InputCheckbox name={name} id={"one"} label={"1 пересадка"} checked={visibleTickets.one} onChange={filterChangeToOneTransfer} />
-      <InputCheckbox name={name} id={"two"} label={"2 пересадки"} checked={visibleTickets.two} onChange={filterChangeToTwoTransfer} />
-      <InputCheckbox name={name} id={"three"} label={"3 пересадки"} checked={visibleTickets.three} onChange={filterChangeToThreeTransfer} />
-    </div>;
-  const checker = () => {
-    if (checkboxes.props.children.filter(item => item.props.checked === true).length === checkboxes.props.children.length - 1 && checkboxes.props.children.filter(item => item.props.checked === false)[0].props.id === 'all')
-      {
-        filterChangeToAllHandler(true)
-    }
+  const labels = {
+    all: 'Все',
+    without: 'Без пересадок',
+    one: '1 пересадка',
+    two: '2 пересадки',
+    three: '3 пересадки'
   }
+
+  const filters = ids.map(id => {
+    const checked = selectedFilters.includes(id) ? true : false;
+    return <InputCheckbox
+      name={name}
+      id={id}
+      key={id}
+      label={labels[id]}
+      checked={ id === 'all' ? isAllChecked : checked }
+      onChange={ id === 'all' ? setFilterAllHandler : setFilterIdHandler}/>
+    }
+  )
+
   return (
-    <form className={classes.form} onChange={checker()}>
+    <form className={classes.form}>
       <span className={classes.form__title}>Количество пересадок</span>
-        {checkboxes}
+      <div className={classes.form__body}>
+        {filters}
+      </div>
     </form>
   );
 }
 
 const mapStateToProps = (state) => {
+  const {selectedFilters, isAllChecked} = state.filterTicketsReducer
   return {
-    visibleTickets: state.filterTicketsReducer
+    selectedFilters,
+    isAllChecked
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    filterChangeToAllHandler: (status) => dispatch(changeFiltrationToAll(status)),
-    filterChangeToWithout: (status) => dispatch(changeFiltrationToWithout(status)),
-    filterChangeToOneTransfer: (status) => dispatch(changeFiltrationToOneTransfer(status)),
-    filterChangeToTwoTransfer: (status) => dispatch(changeFiltrationToTwoTransfer(status)),
-    filterChangeToThreeTransfer: (status) => dispatch(changeFiltrationToThreeTransfer(status)),
-    filterChangeToNotAllHandler: () => dispatch(changeFiltrationToNotAll()),
+    setFilterAllHandler: (id) => dispatch(setFilterAll(id)),
+    setFilterIdHandler: (id) => dispatch(setFilterId(id))
   };
 };
 
