@@ -33,6 +33,7 @@
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
+
     line-height: 1.5;
 
     &:not(:first-of-type) {
@@ -42,6 +43,7 @@
     &-title {
       color: $text-color-third;
       font-size: $fsz-small;
+      text-transform: uppercase;
       margin: 0;
     }
 

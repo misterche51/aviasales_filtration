@@ -1,13 +1,23 @@
-import React from 'react';
+import React, { useEffect} from 'react';
 import classes from './App.module.scss';
 import Logo from '../Logo/Logo';
-import TicketList from '../TicketList/TicketList';
+// import TicketsList from '../TicketsList/TicketsList';
+import TicketsListContainer from '../../containers/TicketsListContainer';
 import Filtration from '../Filtration/Filtration';
 import Toggler from '../Toggler/Toggler';
+import { fetchSearchId } from '../../redux/actions';
 import { connect } from 'react-redux';
 
-function App() {
-  return (
+
+function App({fetchSearchIdHandler}) {
+
+  const url = "https://front-test.beta.aviasales.ru/";
+
+  useEffect(() => {
+    fetchSearchIdHandler(url)
+  }, [])
+
+  return(
     <div className={classes.app}>
       <div className={classes.app__logo}>
         <Logo />
@@ -22,7 +32,8 @@ function App() {
               <Toggler togglerName="filtration" ids={['price', 'speed']}/>
             </div>
             <div className={classes.app__tickets}>
-              <TicketList />
+              {/* <TicketsList /> */}
+              <TicketsListContainer />
             </div>
           </div>
         </div>
@@ -39,10 +50,10 @@ function App() {
 //   };
 // };
 
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//       fetchData: (url) => dispatch(itemsFetchData(url))
-//   };
-// };
+const mapDispatchToProps = (dispatch) => {
+  return {
+      fetchSearchIdHandler: (url) => dispatch(fetchSearchId(url))
+  };
+};
 
-export default connect()(App);
+export default connect(null, mapDispatchToProps)(App);
