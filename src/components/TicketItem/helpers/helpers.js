@@ -35,4 +35,22 @@ const getFormattedTime = (directionObject) => {
   return `${formattingTimeTo00(hoursOfStart)}:${formattingTimeTo00(minsOfStart)} - ${formattingTimeTo00(getHoursOf24(hoursOfFinish))}:${formattingTimeTo00(minsOfFinish)}`
 }
 
-export {getConvertedDuration, getFormattedTime};
+
+const generateStopsTitle = (array) => {
+  const length = array.length;
+  if (length === 0) return "Пересадки";
+  if (length === 1) return "1 пересадка";
+  if ([2, 3, 4].includes(length)) return `${length} пересадки`;
+  else return `${length} пересадки`;
+};
+
+const generateStopsList = (array) => array.length > 0 ? array.join(', '): "Прямой";
+
+
+const getFormattedPrice = (price) => {
+  const string = price.toString();
+  return string.slice(0, -3) + ' ' + string.slice(-3) + ' ₽';
+}
+
+
+export {getConvertedDuration, getFormattedTime, generateStopsTitle, generateStopsList, getFormattedPrice};

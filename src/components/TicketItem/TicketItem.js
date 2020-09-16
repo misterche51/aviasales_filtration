@@ -1,26 +1,17 @@
 import React from 'react';
 import classes from "./TicketItem.module.scss";
-import { getConvertedDuration, getFormattedTime } from "../../workers/time";
+import {
+  getConvertedDuration,
+  getFormattedTime,
+  generateStopsTitle,
+  generateStopsList,
+  getFormattedPrice
+} from "./helpers/helpers";
 
 const TicketItem = ({ price, carrier, segments }) => {
   const [from, away] = segments;
 
-  const generateStopsTitle = (array) => {
-    const length = array.length;
-    if (length === 0) return "Пересадки";
-    if (length === 1) return "1 пересадка";
-    if ([2, 3, 4].includes(length)) return `${length} пересадки`;
-    else return `${length} пересадки`;
-  };
-
-  const getFormattedPrice = (price) => {
-    const string = price.toString();
-    return string.slice(0, -3) + ' ' + string.slice(-3) + ' ₽';
-  }
-
   const formattedPrice = getFormattedPrice(price);
-
-  const stopsListGenerate = (array) => array.length > 0 ? array.join(', '): "Прямой";
 
   const durationFrom = getConvertedDuration(from.duration);
   const durationAway = getConvertedDuration(away.duration);
@@ -31,9 +22,8 @@ const TicketItem = ({ price, carrier, segments }) => {
   const flightStartTimeFrom = getFormattedTime(from);
   const flightStartTimeAway = getFormattedTime(away);
 
-  const stopsListFrom = stopsListGenerate(from.stops);
-  const stopsListAway = stopsListGenerate(away.stops);
-
+  const stopsListFrom = generateStopsList(from.stops);
+  const stopsListAway = generateStopsList(away.stops);
 
   return (
     <div className={classes.ticket}>
