@@ -25,8 +25,9 @@ const List = ({
   errored
 }) => {
   const filteredAndSortedList = getActualTicketsList(ticketsList, selectedFilters, sortingBy);
-  const hasResults = filteredAndSortedList.length === 0 && loaded && errored;
+  const hasResults = filteredAndSortedList.length !== 0 && loaded && !errored;
   if (!hasResults) return <h1>Рейсов, подходящих под заданные фильтры, не найдено</h1>;
+
   return filteredAndSortedList.map(({ price, carrier, segments }) =>
     <li className={classes["tickets-list__item"]} key={JSON.stringify(segments[0])}>
       <TicketItem
@@ -50,7 +51,12 @@ const TicketsList = ({
     <ul className={classes["tickets-list"]}>
       <Loader loaded={ticketsLoadingFinished} errored={searchIdisErrored}/>
       <ErrorMessage onRefresh={fetchRefreshHandler} hasError={searchIdisErrored} />
-      <List ticketsList = {ticketsList} selectedFilters={selectedFilters} sortingBy={sortingBy} loaded={ticketsLoadingFinished} errored={searchIdisErrored} />
+      <List
+        ticketsList={ticketsList}
+        selectedFilters={selectedFilters}
+        sortingBy={sortingBy}
+        loaded={ticketsLoadingFinished}
+        errored={searchIdisErrored} />
     </ul>
   );
 }
