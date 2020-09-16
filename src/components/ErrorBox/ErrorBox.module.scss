@@ -1,0 +1,38 @@
+@import '../../variables.scss';
+
+.box {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  background-color: $decorative-fill-color-fourth;
+  color: $text-color-second;
+  border-radius: 5px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  font-weight: bold;
+
+  &__text {
+    font-size: $fsz-xlarge;
+    text-align: center;
+  }
+
+  &__button {
+    font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+    outline: none;
+    box-sizing: border-box;
+    border-radius: 5px;
+    min-width: 200px;
+    min-height: 60px;
+    padding: 7px 10px;
+    font-weight: bold;
+    font-size: $fsz-large;
+    text-align: center;
+    cursor: pointer;
+    border: 2px solid $decorative-line-color-third;
+    text-transform: uppercase;
+
+    &:hover {
+      transition: 0.2s ease-in-out;
+      transform: scale(1.03)
+    }
+  }
+}

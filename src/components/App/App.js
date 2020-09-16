@@ -1,7 +1,6 @@
-import React, { useEffect} from 'react';
+import React, { useCallback, useEffect} from 'react';
 import classes from './App.module.scss';
 import Logo from '../Logo/Logo';
-// import TicketsList from '../TicketsList/TicketsList';
 import TicketsListContainer from '../../containers/TicketsListContainer';
 import Filtration from '../Filtration/Filtration';
 import Toggler from '../Toggler/Toggler';
@@ -13,9 +12,11 @@ function App({fetchSearchIdHandler}) {
 
   const url = "https://front-test.beta.aviasales.ru/";
 
+  const fetchTickets = useCallback(() => fetchSearchIdHandler(url), [fetchSearchIdHandler])
+
   useEffect(() => {
-    fetchSearchIdHandler(url)
-  }, [])
+   fetchTickets()
+  }, [fetchTickets])
 
   return(
     <div className={classes.app}>
@@ -32,7 +33,6 @@ function App({fetchSearchIdHandler}) {
               <Toggler togglerName="filtration" ids={['price', 'speed']}/>
             </div>
             <div className={classes.app__tickets}>
-              {/* <TicketsList /> */}
               <TicketsListContainer />
             </div>
           </div>
@@ -41,14 +41,6 @@ function App({fetchSearchIdHandler}) {
     </div>
   );
 }
-
-// export default App;
-// const mapStateToProps = (state) => {
-//   return {
-//       hasErrored: state.app.itemsHasErrored,
-//       isLoading: state.app.itemsIsLoading
-//   };
-// };
 
 const mapDispatchToProps = (dispatch) => {
   return {

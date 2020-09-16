@@ -40,7 +40,7 @@ const TicketItem = ({ price, carrier, segments }) => {
       <div className={classes.ticket__header}>
         <p className={classes.ticket__price}>{formattedPrice}</p>
         <div className={classes.ticket__company}>
-          <img src={`http://pics.avs.io/99/36/${carrier}.png`}  width="110" height="36" alt="Билет от эссевен"/>
+          <img src={`http://pics.avs.io/99/36/${carrier}.png`}  width="110" height="36" alt={`Билет от ${carrier}`}/>
         </div>
       </div>
       <div className={classes.ticket__info}>

@@ -77,7 +77,7 @@ export function sortingTicketsReducer(state = initialSortingState, {type, payloa
 }
 
 const initialFiltrationState = {
-  selectedFilters: [],
+  selectedFilters: ["without"],
   isAllChecked: false
 };
 

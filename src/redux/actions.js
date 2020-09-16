@@ -61,7 +61,6 @@ export function fetchSearchId(url) {
         return response;
       })
       .then(response => response.json())
-      // .then(({ searchId }) => dispatch(gettingSearchIdisCompleted(searchId)))
       .then(({ searchId }) =>
         fetch(`${url}tickets?searchId=${searchId}`))
           .then(response => {
@@ -72,7 +71,7 @@ export function fetchSearchId(url) {
           })
       .then(response => response.json())
       .then(({tickets, stop}) => dispatch(ticketsFetchSuccess(tickets)))
-      // .catch(() => dispatch(gettingSearchIdisErrored()));
+      .catch(() => dispatch(gettingSearchIdisErrored()));
   };
 }
 
