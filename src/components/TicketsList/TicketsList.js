@@ -13,7 +13,7 @@ const ErrorMessage = ({hasError, onRefresh}) => {
  return hasError ? <ErrorBox
   message="Что-то пошло не так"
   textButton="Повторить запрос"
-  url="https://front-test.beta.aviasales.ru/"
+  url="https://aviasales-test-api.java-mentor.com/"
   onRefresh={onRefresh} /> : null;
 }
 
@@ -25,8 +25,8 @@ const List = ({
   errored
 }) => {
   const filteredAndSortedList = getActualTicketsList(ticketsList, selectedFilters, sortingBy);
-  const hasResults = filteredAndSortedList.length !== 0 && loaded && !errored;
-  if (!hasResults) return <h1>Рейсов, подходящих под заданные фильтры, не найдено</h1>;
+  const hasNoResults = filteredAndSortedList.length === 0 && loaded && !errored;
+  if (hasNoResults) return <h1>Рейсов, подходящих под заданные фильтры, не найдено</h1>;
 
   return filteredAndSortedList.map(({ price, carrier, segments }) =>
     <li className={classes["tickets-list__item"]} key={JSON.stringify(segments[0])}>

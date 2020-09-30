@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 
 function App({fetchSearchIdHandler}) {
 
-  const url = "https://front-test.beta.aviasales.ru/";
+  const url = "https://aviasales-test-api.java-mentor.com/";
 
   const fetchTickets = useCallback(() => fetchSearchIdHandler(url), [fetchSearchIdHandler])
 
